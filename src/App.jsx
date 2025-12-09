@@ -1,0 +1,13 @@
+import gsap, { ScrollTrigger, SplitText } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger, SplitText);
+
+function App() {
+  return (
+    <div className="flex-center h-dvh">
+      <h1 className="text-3xl text-indigo-300">Halo GSAP</h1>
+    </div>
+  );
+}
+
+export default App;
