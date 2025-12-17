@@ -1,5 +1,5 @@
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { useRef } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -10,17 +10,23 @@ const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   useGSAP(() => {
-    // const heroSplit = new SplitText(".title", { type: "chars, words" });
-    const paragraphSplit = new SplitText(".subtitle", { type: "lines" });
+    const heroSplit = new SplitText(".title", {
+      type: "chars, words",
+    });
 
-    // heroSplit.chars.forEach((char) => char.classList.add("text-gradient"));
+    const paragraphSplit = new SplitText(".subtitle", {
+      type: "lines",
+    });
 
-    // gsap.from(heroSplit.chars, {
-    //   yPercent: 100,
-    //   duration: 1.8,
-    //   ease: "expo.out",
-    //   stagger: 0.05,
-    // });
+    // Apply text-gradient class once before animating
+    heroSplit.chars.forEach((char) => char.classList.add("text-gradient"));
+
+    gsap.from(heroSplit.chars, {
+      yPercent: 100,
+      duration: 1.8,
+      ease: "expo.out",
+      stagger: 0.06,
+    });
 
     gsap.from(paragraphSplit.lines, {
       opacity: 0,
@@ -41,14 +47,13 @@ const Hero = () => {
         },
       })
       .to(".right-leaf", { y: 200 }, 0)
-      .to(".left-leaf", { y: -200 }, 0);
+      .to(".left-leaf", { y: -200 }, 0)
+      .to(".arrow", { y: 100 }, 0);
 
     const startValue = isMobile ? "top 50%" : "center 60%";
     const endValue = isMobile ? "120% top" : "bottom top";
 
-    // Video animation timeline
-    // Create the timeline with a default duration
-    const tl = gsap.timeline({
+    let tl = gsap.timeline({
       scrollTrigger: {
         trigger: "video",
         start: startValue,
@@ -75,7 +80,6 @@ const Hero = () => {
           alt="left-leaf"
           className="left-leaf"
         />
-
         <img
           src="/images/hero-right-leaf.png"
           alt="right-leaf"
@@ -83,6 +87,8 @@ const Hero = () => {
         />
 
         <div className="body">
+          {/* <img src="/images/arrow.png" alt="arrow" className="arrow" /> */}
+
           <div className="content">
             <div className="space-y-5 hidden md:block">
               <p>Cool. Crisp. Classic.</p>
@@ -97,7 +103,7 @@ const Hero = () => {
                 creative flair, and timeless recipes — designed to delight your
                 senses.
               </p>
-              <a href="#cocktails">View Cocktails</a>
+              <a href="#cocktails">View cocktails</a>
             </div>
           </div>
         </div>
